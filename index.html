@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF kereső</title>
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background-color: #f5f5f5;
+      color: #222;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      padding: 2rem;
+      width: min(400px, 90vw);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin: 0;
+      color: #555;
+    }
+
+    .row {
+      display: flex;
+      gap: .5rem;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: .6rem .8rem;
+      font-size: 1rem;
+      border-radius: .6rem;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    input[type="text"]:focus {
+      border-color: #4a90e2;
+      box-shadow: 0 0 0 3px rgba(74,144,226,.2);
+    }
+
+    button {
+      padding: .6rem .9rem;
+      border: none;
+      border-radius: .6rem;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #4a90e2;
+      color: white;
+    }
+
+    button:active {
+      transform: scale(.98);
+    }
+
+    .message {
+      font-size: .9rem;
+      color: #d00;
+      text-align: center;
+      padding: .5rem;
+      min-height: 1.2em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>PDF kereső</h1>
+    <p>Írj be egy azonosítót (pl. "12345678"), és kattints a Megnyit gombra 👇<br />
+    Ha létezik a <code>pdfek/12345678.pdf</code> fájl, megnyílik új fülön.</p>
+
+    <div class="row">
+      <input id="keywordInput" type="text" placeholder="pl. 12345678" />
+      <button id="openBtn">Megnyit</button>
+    </div>
+
+    <div class="message" id="messageBox"></div>
+  </div>
+
+<script>
+  const input = document.getElementById("keywordInput");
+  const btn = document.getElementById("openBtn");
+  const msg = document.getElementById("messageBox");
+
+  function openPDF() {
+    const keyRaw = input.value.trim();
+    if (!keyRaw) {
+      msg.textContent = "Adj meg egy azonosítót!";
+      return;
+    }
+
+    const pdfPath = `pdfek/${keyRaw}.pdf`;
+
+    // töröljük az üzenetet, mert úgyis próbálunk nyitni
+    msg.textContent = "";
+
+    // megnyitjuk új fülön
+    window.open(pdfPath, "_blank");
+  }
+
+  btn.addEventListener("click", openPDF);
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") openPDF();
+  });
+</script>
+
+
+</body>
+</html>
