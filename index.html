@@ -6,125 +6,264 @@
   <title>PDF kereső</title>
 
   <style>
+    /* Alap stílusok */
     body {
-      font-family: system-ui, sans-serif;
-      background-color: #f5f5f5;
-      color: #222;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 2rem;
-    }
-
-    .card {
-      background: white;
-      border-radius: 1rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-      padding: 2rem;
-      width: min(400px, 90vw);
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    h1 {
-      font-size: 1.25rem;
-      font-weight: 600;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #ffffff;
+      color: #212529;
       margin: 0;
     }
 
-    p {
-      font-size: 0.9rem;
-      line-height: 1.4;
-      margin: 0;
-      color: #555;
+    /* Fejléc (logo sáv) */
+    .topbar {
+      width: 100%;
+      background-color: #f8f9fa; /* nagyon halvány szürke */
+      border-bottom: 1px solid #e2e3e5;
+      padding: 1rem;
+      box-sizing: border-box;
     }
 
-    .row {
+    .topbar-inner {
+      max-width: 900px;
+      margin: 0 auto;
       display: flex;
-      gap: .5rem;
+      align-items: center;
     }
 
-    input[type="text"] {
-      flex: 1;
-      padding: .6rem .8rem;
-      font-size: 1rem;
-      border-radius: .6rem;
-      border: 1px solid #ccc;
-      outline: none;
-    }
-
-    input[type="text"]:focus {
-      border-color: #4a90e2;
-      box-shadow: 0 0 0 3px rgba(74,144,226,.2);
-    }
-
-    button {
-      padding: .6rem .9rem;
-      border: none;
-      border-radius: .6rem;
-      font-size: .95rem;
-      font-weight: 600;
-      cursor: pointer;
-      background: #4a90e2;
-      color: white;
-    }
-
-    button:active {
-      transform: scale(.98);
-    }
-
-    .message {
-      font-size: .9rem;
+    .logo-placeholder {
+      background: #ffffff;
+      border: 1px solid #e2e3e5;
       color: #d00;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.5rem 0.75rem;
+      display: inline-block;
+      border-radius: 2px;
+    }
+
+    .logo-placeholder img {
+      max-height: 40px;
+      max-width: 160px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Oldal tartalma */
+    .page-wrap {
+      max-width: 900px;
+      margin: 2rem auto 4rem;
+      padding: 0 1rem;
+      box-sizing: border-box;
+    }
+
+    /* A nagy keretes doboz */
+    .panel {
+      border: 1px solid #d3d4d5;
+      border-radius: 4px;
+      background: #ffffff;
+      box-sizing: border-box;
+    }
+
+    /* Panel fejléce ("Digi" mintájára) */
+    .panel-header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #d3d4d5;
+      border-radius: 4px 4px 0 0;
+      padding: 0.75rem 1rem;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #212529;
+    }
+
+    /* Panel tartalma */
+    .panel-body {
+      padding: 1.5rem 1rem 2rem;
       text-align: center;
-      padding: .5rem;
+    }
+
+    .instructions {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #212529;
+      line-height: 1.4;
+      max-width: 32rem;
+      margin: 0 auto 1rem auto;
+    }
+
+    /* Input mező */
+    .input-wrapper {
+      max-width: 32rem;
+      margin: 0.5rem auto 1rem auto;
+      text-align: left;
+    }
+
+    .search-input {
+      width: 100%;
+      font-size: 1rem;
+      line-height: 1.4;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid #adb5bd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      color: #212529;
+    }
+
+    .search-input::placeholder {
+      color: #6c757d;
+    }
+
+    /* Kék gomb */
+    .btn-search {
+      display: inline-block;
+      background-color: #0d6efd; /* klasszikus "bootstrap" kék */
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.4;
+      padding: 0.6rem 1.25rem;
+      border-radius: 4px;
+      border: 1px solid #0d6efd;
+      cursor: pointer;
+      text-decoration: none;
+      min-width: 7rem;
+    }
+
+    .btn-search:hover {
+      background-color: #0b5ed7;
+      border-color: #0a58ca;
+    }
+
+    .btn-wrapper {
+      margin: 0 auto 1.5rem auto;
+    }
+
+    /* Hibaüzenet */
+    .message {
+      font-size: 0.9rem;
       min-height: 1.2em;
+      color: #b91c1c;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Alsó infó blokk */
+    .more-info {
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #212529;
+    }
+
+    .more-info a {
+      color: #0d6efd;
+      text-decoration: none;
+    }
+
+    .more-info a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobil finomítás */
+    @media (max-width: 480px) {
+      .panel-header {
+        font-size: 1.1rem;
+      }
+      .instructions {
+        font-size: 0.95rem;
+      }
+      .btn-search {
+        width: 100%;
+        text-align: center;
+      }
+      .btn-wrapper {
+        max-width: 32rem;
+        padding: 0 1rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <h1>PDF kereső</h1>
-    <p>Írj be egy azonosítót (pl. "12345678"), és kattints a Megnyit gombra 👇<br />
-    Ha létezik a <code>pdfek/12345678.pdf</code> fájl, megnyílik új fülön.</p>
-
-    <div class="row">
-      <input id="keywordInput" type="text" placeholder="pl. 12345678" />
-      <button id="openBtn">Megnyit</button>
+  <!-- FELSŐ LOGÓ SÁV -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="logo-placeholder">
+        <!-- Ha kész a logó: cseréld az img-et, vagy hagyd el a piros "logo" feliratot -->
+        <!-- <img src="logo.png" alt="Cég logó" /> -->
+        <img src="logo.png" />
+      </div>
     </div>
+  </header>
 
-    <div class="message" id="messageBox"></div>
-  </div>
+  <!-- KÖZPONTI KERETES PANEL -->
+  <main class="page-wrap">
+    <section class="panel">
 
-<script>
-  const input = document.getElementById("keywordInput");
-  const btn = document.getElementById("openBtn");
-  const msg = document.getElementById("messageBox");
+      <!-- Fejléc ("Digi" mintájára) -->
+      <div class="panel-header">
+        Digitales Gutachten
+      </div>
 
-  function openPDF() {
-    const keyRaw = input.value.trim();
-    if (!keyRaw) {
-      msg.textContent = "Adj meg egy azonosítót!";
-      return;
+      <!-- Tartalom -->
+      <div class="panel-body">
+
+        <div class="instructions">
+          Um das aktuelle Gutachten abzurufen, geben Sie bitte die eindeutige Gutachtennummer ein
+        </div>
+
+        <div class="input-wrapper">
+          <input
+            id="keywordInput"
+            type="text"
+            class="search-input"
+            placeholder="Gutachten-Nr."
+          />
+        </div>
+
+        <div class="btn-wrapper">
+          <button id="openBtn" class="btn-search">Suchen</button>
+        </div>
+
+        <div id="messageBox" class="message"></div>
+
+        <div class="more-info">
+          Ältere Gutachten zu diesem Fahrzeug finden Sie unter
+          <br />
+          <a href="https://valami.org" target="_blank" rel="noopener noreferrer">kfzgutachten.at</a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // működés: azonosító -> megpróbáljuk megnyitni pdfek/{azonosito}.pdf új fülön
+    const input = document.getElementById("keywordInput");
+    const btn = document.getElementById("openBtn");
+    const msg = document.getElementById("messageBox");
+
+    function openPDF() {
+      const keyRaw = input.value.trim();
+
+      if (!keyRaw) {
+        msg.textContent = "Bitte Gutachtennummer eingeben";
+        return;
+      }
+
+      msg.textContent = ""; // reset hibaüzenet
+
+      const pdfPath = `pdfek/${keyRaw}.pdf`;
+
+      // Új fülön megnyitjuk. Ha nincs ilyen fájl, az új fülön fog látszani a hiba (404).
+      window.open(pdfPath, "_blank");
     }
 
-    const pdfPath = `pdfek/${keyRaw}.pdf`;
+    btn.addEventListener("click", openPDF);
 
-    // töröljük az üzenetet, mert úgyis próbálunk nyitni
-    msg.textContent = "";
-
-    // megnyitjuk új fülön
-    window.open(pdfPath, "_blank");
-  }
-
-  btn.addEventListener("click", openPDF);
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") openPDF();
-  });
-</script>
-
-
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        openPDF();
+      }
+    });
+  </script>
 </body>
 </html>
