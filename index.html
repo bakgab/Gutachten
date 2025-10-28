@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZBD Qr Code</title>
-
   <style>
-    /* Alap stílusok */
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       background-color: #ffffff;
@@ -14,10 +12,10 @@
       margin: 0;
     }
 
-    /* Fejléc (logo sáv) */
+    /* Fejléc (szürke sáv) */
     .topbar {
       width: 100%;
-      background-color: #f8f9fa; /* nagyon halvány szürke */
+      background-color: #f8f9fa;
       border-bottom: 1px solid #e2e3e5;
       padding: 1rem;
       box-sizing: border-box;
@@ -30,14 +28,14 @@
       align-items: center;
     }
 
-    /* LOGÓ — háttér nélkül */
+    /* Logó (átlátszó háttérrel) */
     .logo-area img {
       max-height: 40px;
       object-fit: contain;
       display: block;
     }
 
-    /* Oldal tartalma */
+    /* Központi doboz */
     .page-wrap {
       max-width: 900px;
       margin: 2rem auto 4rem;
@@ -45,15 +43,12 @@
       box-sizing: border-box;
     }
 
-    /* A nagy keretes doboz */
     .panel {
       border: 1px solid #d3d4d5;
       border-radius: 4px;
       background: #ffffff;
-      box-sizing: border-box;
     }
 
-    /* Panel fejléce ("Digi" mintájára) */
     .panel-header {
       background-color: #f8f9fa;
       border-bottom: 1px solid #d3d4d5;
@@ -64,25 +59,24 @@
       color: #212529;
     }
 
-    /* Panel tartalma */
     .panel-body {
-      padding: 1.5rem 1rem 2rem;
+      padding: 1.5rem 1rem 1rem;
       text-align: center;
     }
 
+    /* Instrukciós szöveg */
     .instructions {
       font-size: 1rem;
       font-weight: 600;
       color: #212529;
       line-height: 1.4;
-      max-width: 32rem;
-      margin: 0 auto 1rem auto;
+      margin: 0 auto 1rem;
     }
 
     /* Input mező */
     .input-wrapper {
       max-width: 32rem;
-      margin: 0.5rem auto 1rem auto;
+      margin: 0.5rem auto 1rem;
       text-align: left;
     }
 
@@ -93,101 +87,67 @@
       padding: 0.6rem 0.75rem;
       border: 1px solid #adb5bd;
       border-radius: 4px;
-      box-sizing: border-box;
       color: #212529;
+      box-sizing: border-box;
     }
 
     .search-input::placeholder {
       color: #6c757d;
     }
 
-    /* Kék gomb */
+    /* Keresés gomb */
     .btn-search {
-      background-color: #007bff;
-      color: #fff;
+      background-color: #007bff !important;
+      color: #fff !important;
       font-size: 1rem;
       font-weight: 500;
       padding: 0.6rem 1.25rem;
       border-radius: 4px;
-      border: 1px solid #007bff;
+      border: 1px solid #007bff !important;
       cursor: pointer;
       min-width: 7rem;
+      margin-bottom: 0; /* ne hagyjon üres helyet */
     }
 
     .btn-search:hover {
-      background-color: #0069d9;
-      border-color: #0062cc;
+      background-color: #0069d9 !important;
+      border-color: #0062cc !important;
     }
 
-    .btn-wrapper {
-      margin: 0 auto 1.5rem;
-    }
-
-    /* Hibaüzenet */
-    .message {
-      font-size: 0.9rem;
-      min-height: 1.2em;
-      color: #b91c1c;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    /* Alsó infó blokk */
+    /* Alsó információs rész */
     .more-info {
       font-size: 1rem;
       line-height: 1.4;
       color: #212529;
+      margin-top: 1rem; /* kis távolság a gombtól */
     }
 
     .more-info a {
-      color: #0d6efd;
+      color: #007bff;
       text-decoration: none;
+      margin-left: 0.3em;
     }
 
     .more-info a:hover {
       text-decoration: underline;
     }
-
-    /* Mobil finomítás */
-    @media (max-width: 480px) {
-      .panel-header {
-        font-size: 1.1rem;
-      }
-      .instructions {
-        font-size: 0.95rem;
-      }
-      .btn-search {
-        width: 100%;
-        text-align: center;
-      }
-      .btn-wrapper {
-        max-width: 32rem;
-        padding: 0 1rem;
-      }
-    }
   </style>
 </head>
 <body>
 
-  <!-- FELSŐ LOGÓ SÁV -->
+  <!-- Fejléc logóval -->
   <header class="topbar">
     <div class="topbar-inner">
-     <div class="logo-area">
-        <img src="logo.png" alt="Cég logó" />
+      <div class="logo-area">
+        <img src="logo.png" />
       </div>
     </div>
   </header>
 
-  <!-- KÖZPONTI KERETES PANEL -->
+  <!-- Központi panel -->
   <main class="page-wrap">
     <section class="panel">
-
-      <!-- Fejléc ("Digi" mintájára) -->
-      <div class="panel-header">
-        Digitales Gutachten
-      </div>
-
-      <!-- Tartalom -->
+      <div class="panel-header">Digitales Gutachten</div>
       <div class="panel-body">
 
         <div class="instructions">
@@ -195,23 +155,13 @@
         </div>
 
         <div class="input-wrapper">
-          <input
-            id="keywordInput"
-            type="text"
-            class="search-input"
-            placeholder="Gutachten-Nr."
-          />
+          <input id="keywordInput" type="text" class="search-input" placeholder="Gutachten-Nr." />
         </div>
 
-        <div class="btn-wrapper">
-          <button id="openBtn" class="btn-search">Suchen</button>
-        </div>
-
-        <div id="messageBox" class="message"></div>
+        <button id="openBtn" class="btn-search">Suchen</button>
 
         <div class="more-info">
-          Ältere Gutachten zu diesem Fahrzeug finden Sie unter <br />
-          <a href="https://kfzgutachten.at">kfzgutachten.at</a>
+          Ältere Gutachten zu diesem Fahrzeug finden Sie unter <a href="https://kfzgutachten.at" target="_blank" rel="noopener noreferrer">kfzgutachten.at</a>
         </div>
 
       </div>
@@ -219,34 +169,22 @@
   </main>
 
   <script>
-    // működés: azonosító -> megpróbáljuk megnyitni pdfek/{azonosito}.pdf új fülön
     const input = document.getElementById("keywordInput");
     const btn = document.getElementById("openBtn");
-    const msg = document.getElementById("messageBox");
 
     function openPDF() {
       const keyRaw = input.value.trim();
-
-      if (!keyRaw) {
-        msg.textContent = "Bitte Gutachtennummer eingeben";
-        return;
-      }
-
-      msg.textContent = ""; // reset hibaüzenet
+      if (!keyRaw) return; // ha üres, ne történjen semmi
 
       const pdfPath = `pdfek/${keyRaw}.pdf`;
-
-      // Új fülön megnyitjuk. Ha nincs ilyen fájl, az új fülön fog látszani a hiba (404).
       window.open(pdfPath, "_blank");
     }
 
     btn.addEventListener("click", openPDF);
-
     input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        openPDF();
-      }
+      if (e.key === "Enter") openPDF();
     });
   </script>
 </body>
 </html>
+
